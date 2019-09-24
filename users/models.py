@@ -3,4 +3,4 @@ from django.db import models
 
 
 class User(AbstractUser):
-    bio = models.TextField(default="")
+    bio = models.TextField()
