@@ -69,7 +69,7 @@ class Room(core_models.TimeStampedModel):
     name = models.CharField(max_length=140)
     description = models.TextField()
     country = CountryField()
-    ciry = models.CharField(max_length=80)
+    city = models.CharField(max_length=80)
     price = models.IntegerField()
     address = models.CharField(max_length=140)
     guests = models.IntegerField()
