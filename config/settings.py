@@ -40,7 +40,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = ["django_countries"]
 
-PROJECT_APPS = ["users", "rooms", "core", "reviews"]
+PROJECT_APPS = ["users", "rooms", "core", "reviews", "reservations", "lists"]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
