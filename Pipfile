@@ -1,11 +1,12 @@
 [[source]]
 name = "pypi"
-url = "http://pypi.org/simple"
+url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
 flake8 = "*"
 black = "*"
+ipython = "*"
 
 [packages]
 django = "==2.2.5"
