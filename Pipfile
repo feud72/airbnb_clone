@@ -1,7 +1,7 @@
 [[source]]
 name = "pypi"
-url = "http://ftp.daumkakao.com/pypi/simple"
-trusted-host = "ftp.daumkakao.com"
+url = "http://pypi.org/simple"
+verify_ssl = true
 
 [dev-packages]
 flake8 = "*"
