@@ -65,7 +65,6 @@ class RoomAdmin(admin.ModelAdmin):
         "facilities",
         "house_rules",
         "city",
-        "country",
     )
 
     raw_id_fields = ("host",)
