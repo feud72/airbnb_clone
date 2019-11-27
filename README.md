@@ -14,7 +14,7 @@ $ sudo -H pip install pipenv
 $ pipenv install --python $(which python3.7)
 ```
 
-### Pillow Prerequisites
+### Pillow install - Prerequisites
 
 https://pillow.readthedocs.io/en/stable/installation.html
 
@@ -29,26 +29,33 @@ $ sudo apt-get install libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev \
 ### Initialize
 
 ```bash
-(airbnb_clone) python manage.py createsuperuser
-(airbnb_clone) python manage.py makemigrations
-(airbnb_clone) python manage.py migrate
+python manage.py createsuperuser
+
+python manage.py makemigrations
+
+python manage.py migrate
 ```
 
-### Seeding items
+### Seeding fake items
 
 ```bash
-(airbnb_clone) python manage.py seed_amenities
-(airbnb_clone) python manage.py seed_facilities
-(airbnb_clone) python manage.py seed_roomtypes
+python manage.py seed_amenities
+
+python manage.py seed_facilities
+
+python manage.py seed_roomtypes
 ```
 
 ```bash
-(airbnb_clone) python manage.py seed_users --number 50
-(airbnb_clone) python manage.py seed_rooms --number 150
+python manage.py seed_users --number 50
+
+python manage.py seed_rooms --number 150
 ```
 
 ```bash
-(airbnb_clone) python manage.py seed_reviews --number 50
-(airbnb_clone) python manage.py seed_lists --number 50
-(airbnb_clone) python manage.py seed_reservations --number 50
+python manage.py seed_reviews --number 50
+
+python manage.py seed_lists --number 50
+
+python manage.py seed_reservations --number 50
 ```
