@@ -6,7 +6,7 @@ from . import forms
 class LoginView(View):
 
     def get(self, request):
-        form = forms.LoginForm(initial={"email": "itn@las.com"})
+        form = forms.LoginForm(initial={"email": "feud72@gmail.com"})
         return render(request, "users/login.html", {"form": form})
 
     def post(self, request):
