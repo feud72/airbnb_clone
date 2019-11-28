@@ -2,11 +2,13 @@ from django import forms
 from . import models
 
 
-class LoginForm(forms.Form):
+class LoginForm(forms.ModelForm):
     """LoginForm definition."""
 
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    class Meta:
+        model = models.User
+        fields = ["email", "password"]
+        widgets = {"password": forms.PasswordInput}
 
     def clean(self):
         email = self.cleaned_data.get('email')
