@@ -22,22 +22,15 @@ class LoginForm(forms.Form):
             self.add_error("email", forms.ValidationError("User does not exist"))
 
 
-class SignUpForm(forms.Form):
+class SignUpForm(forms.ModelForm):
     """SignUpForm definition."""
 
-    email = forms.EmailField()
-    first_name = forms.CharField(max_length=80)
-    last_name = forms.CharField(max_length=80)
+    class Meta:
+        model = models.User
+        fields = ["email", "first_name", "last_name"]
+
     password = forms.CharField(widget=forms.PasswordInput)
     password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
-
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        try:
-            models.User.objects.get(email=email)
-            raise forms.ValidationError("User already exists with that email")
-        except models.User.DoesNotExist:
-            return email
 
     def clean_password1(self):
         password = self.cleaned_data["password"]
@@ -46,4 +39,11 @@ class SignUpForm(forms.Form):
             raise forms.ValidationError("Password confirmation does not match")
         else:
             return password
-    
+
+    def save(self, *args, **kwargs):
+        username = self.cleaned_data.get("email")
+        password = self.cleaned_data.get("password")
+        user = super().save(commit=False)
+        user.username = username
+        user.set_password(password)
+        user.save()
