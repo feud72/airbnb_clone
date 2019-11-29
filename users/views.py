@@ -83,15 +83,15 @@ def github_callback(request):
         client_secret = os.environ.get("GH_SECRET")
         code = request.GET.get("code", None)
         if code is not None:
-            res = requests.post(f"https://github.com/login/oauth/access_token?client_id={client_id}&client_secret={client_secret}&code={code}",
-                                headers={"Accept": "application/json"}
-                                )
-            res_json = res.json()
-            error = res_json.get("error", None)
+            token_request = requests.post(f"https://github.com/login/oauth/access_token?client_id={client_id}&client_secret={client_secret}&code={code}",
+                                          headers={"Accept": "application/json"}
+                                          )
+            token_json = token_request.json()
+            error = token_json.get("error", None)
             if error:
                 raise GithubException()
             else:
-                access_token = res_json.get("access_token")
+                access_token = token_json.get("access_token")
                 profile_res = requests.get("https://api.github.com/user",
                                            headers={"Authorization": f"token {access_token}",
                                                     "Accept": "application/json"})
@@ -117,3 +117,24 @@ def github_callback(request):
     except GithubException:
         # send error message
         return redirect(reverse("core:home"))
+
+
+def kakao_login(request):
+    client_id = os.environ.get("KAKAO_ID")
+    redirect_uri = "http://127.0.0.1:8000/users/login/kakao/callback"
+    return redirect(f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code")
+
+
+class KakaoException(Exception):
+    pass
+
+
+def kakao_callback(request):
+    client_id = os.environ.get("KAKAO_ID")
+    redirect_uri = "http://127.0.0.1:8000/users/login/kakao/callback"
+    try:
+        code = request.GET.get("code")
+        token_request = requests.get(
+            f"https://kauth.kakao.com/auth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}")
+    except KakaoException:
+        return redirect(reverse("users:login"))
