@@ -5,12 +5,11 @@
 {% endblock search-bar %}
 
 {% block content %}
-Hello!
-<form method="POST" action="{% url "users:login" %}">
-{% csrf_token %}
-{{ form.as_p }}
-<button>Login</button>
-
-</form>
-
+    {% include 'partials/social_login.html' %}
+    
+    <form method="POST" action="{% url "users:login" %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>Login</button>
+    </form>
 {% endblock %}

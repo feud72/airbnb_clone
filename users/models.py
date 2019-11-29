@@ -23,15 +23,24 @@ class User(AbstractUser):
     LANGUAGE_ENGLISH = "en"
     LANGUAGE_KOREAN = "kr"
 
-    LANGUAGE_CHOICES = ((LANGUAGE_ENGLISH, "English"), (LANGUAGE_KOREAN, "Korean"))
+    LANGUAGE_CHOICES = ((LANGUAGE_ENGLISH, "English"),
+                        (LANGUAGE_KOREAN, "Korean"))
 
     CURRENCY_USD = "usd"
     CURRENCY_KRW = "krw"
 
     CURRENCY_CHOICES = ((CURRENCY_USD, "USD"), (CURRENCY_KRW, "KRW"))
 
+    LOGIN_EMAIL = "email"
+    LOGIN_GITHUB = "github"
+    LOGIN_KAKAO = "kakao"
+
+    LOGIN_CHOICES = ((LOGIN_EMAIL, "Email"), (LOGIN_GITHUB,
+                                              "Github"), (LOGIN_KAKAO, "Kakao"))
+
     avatar = models.ImageField(upload_to="avatars", blank=True)
-    gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True)
+    gender = models.CharField(choices=GENDER_CHOICES,
+                              max_length=10, blank=True)
     bio = models.TextField(blank=True)
     birthdate = models.DateField(null=True, blank=True)
     language = models.CharField(
@@ -43,10 +52,12 @@ class User(AbstractUser):
     superhost = models.BooleanField(default=False)
     email_verified = models.BooleanField(default=False)
     email_secret = models.UUIDField(default=uuid.uuid4, editable=False)
+    login_method = models.CharField(max_length=50, choices=LOGIN_CHOICES, default=LOGIN_EMAIL)
 
     def verify_email(self):
         if self.email_verified is False:
-            html_message = render_to_string("emails/verify_email.html", {'secret': self.email_secret})
+            html_message = render_to_string(
+                "emails/verify_email.html", {'secret': self.email_secret})
             send_mail(
                 "Verify Airbnb Account",
                 strip_tags(html_message),
