@@ -11,7 +11,7 @@ $ sudo -H pip install pipenv
 ```
 
 ```bash
-$ pipenv install --python $(which python)
+$ pipenv install --python $(which python) --dev
 ```
 
 ### Pillow install - Prerequisites
