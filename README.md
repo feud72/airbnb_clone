@@ -11,7 +11,7 @@ $ sudo -H pip install pipenv
 ```
 
 ```bash
-$ pipenv install --python $(which python3.7)
+$ pipenv install --python $(which python)
 ```
 
 ### Pillow install - Prerequisites
@@ -26,53 +26,63 @@ $ sudo apt-get install libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev \
     libharfbuzz-dev libfribidi-dev
 ```
 
+on termux
+
+```bash
+$ pkg install libtiff libwebp openjpeg
+$ LDFLAGS="-L/system/lib/" CFLAGS="-I/data/data/com.termux/files/usr/include/" pipenv install Pillow
+```
+
+https://wiki.termux.com/wiki/Image_Editors
+
 ### Initialize
 
 ```bash
-<<<<<<< HEAD
-python manage.py createsuperuser
+python manage.py makemigrations users
 
-python manage.py makemigrations
+python manage.py makemigrations rooms
+
+python manage.py makemigrations reviews
+
+python manage.py makemigrations reservations
+
+python manage.py makemigrations lists
+
+python manage.py createsuperuser 
 
 python manage.py migrate
-=======
-python manage.py makemigrations
-python manage.py migrate
-python manage.py createsuperuser
->>>>>>> 1e67093d14d65f168920ce0c611f04902c938559
 ```
 
 ### Seeding fake items
 
 ```bash
 python manage.py seed_amenities
-<<<<<<< HEAD
 
 python manage.py seed_facilities
 
-=======
-python manage.py seed_facilities
->>>>>>> 1e67093d14d65f168920ce0c611f04902c938559
 python manage.py seed_roomtypes
 ```
 
 ```bash
 python manage.py seed_users --number 50
-<<<<<<< HEAD
 
-=======
->>>>>>> 1e67093d14d65f168920ce0c611f04902c938559
+unzip photos_seed.zip
+
+mv photos_seed room_photos
+
+mkdir uploads
+
+mv room_photos uploads/
+
 python manage.py seed_rooms --number 150
 ```
 
+https://github.com/Brobin/django-seed/issues/65
+
 ```bash
 python manage.py seed_reviews --number 50
-<<<<<<< HEAD
 
 python manage.py seed_lists --number 50
 
-=======
-python manage.py seed_lists --number 50
->>>>>>> 1e67093d14d65f168920ce0c611f04902c938559
 python manage.py seed_reservations --number 50
 ```
